@@ -12,6 +12,9 @@ class CourseController extends Controller
     public function index(Request $request)
     {
         $user = $request->user();
+
+        if (!$user) return Inertia::render('Welcome');
+
         $courses = Course::where('user_id', $user->id)->with('author')->paginate(1); // Paginate courses
 
         return Inertia::render('Courses/Index', [
@@ -22,8 +25,12 @@ class CourseController extends Controller
         ]);
     }
 
-    public function create()
+    public function create(Request $request)
     {
+        $user = $request->user();
+
+        if (!$user) return Inertia::render('Welcome');
+
         $users = User::all();
         return Inertia::render('Courses/Create', ['users' => $users]);
     }
@@ -45,6 +52,10 @@ class CourseController extends Controller
 
     public function show(Course $course, Request $request)
     {
+        $user = $request->user();
+
+        if (!$user) return Inertia::render('Welcome');
+
         // Paginate lessons, default to 10 per page
         $lessons = $course->lessons()->paginate(10);
 
@@ -61,8 +72,12 @@ class CourseController extends Controller
         ]);
     }
 
-    public function edit(Course $course)
+    public function edit(Course $course, Request $request)
     {
+        $user = $request->user();
+
+        if (!$user) return Inertia::render('Welcome');
+
         $users = User::all();
         return Inertia::render('Courses/Edit', ['course' => $course, 'users' => $users]);
     }

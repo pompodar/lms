@@ -8,7 +8,7 @@ const Show = ({auth}) => {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-gray-800 leading-tight">Courses</h2>}
+            header={<h2 className="font-semibold text-xl text-indigo-500 leading-tight">Courses</h2>}
         >
             <Head title="Courses" />
             <h1>{lesson.title}</h1>
