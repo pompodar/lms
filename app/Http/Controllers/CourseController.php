@@ -12,8 +12,14 @@ class CourseController extends Controller
     public function index(Request $request)
     {
         $user = $request->user();
-        $courses = Course::where('user_id', $user->id)->with('author')->get();
-        return Inertia::render('Courses/Index', ['courses' => $courses]);
+        $courses = Course::where('user_id', $user->id)->with('author')->paginate(1); // Paginate courses
+
+        return Inertia::render('Courses/Index', [
+            'courses' => $courses,
+            'currentPage' => $courses->currentPage(),
+            'lastPage' => $courses->lastPage(),
+            'links' => $courses->links()->elements,
+        ]);
     }
 
     public function create()
@@ -48,7 +54,10 @@ class CourseController extends Controller
         // Pass lessons and course to Inertia
         return Inertia::render('Courses/Show', [
             'course' => $course,
-            'lessons' => $lessons
+            'lessons' => $lessons,
+            'currentPage' => $lessons->currentPage(),
+            'lastPage' => $lessons->lastPage(),
+            'links' => $lessons->links()->elements,
         ]);
     }
 

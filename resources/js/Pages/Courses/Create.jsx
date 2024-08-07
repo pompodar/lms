@@ -26,13 +26,13 @@ const Create = ({auth}) => {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 sm:px-6 lg:px-8 mt-4">
                 <div className="px-4 sm:px-6 bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4 w-max p-4">
                     <form onSubmit={handleSubmit}>
-                        <div>
-                            <label>Title</label>
-                            <input type="text" value={title} onChange={e => setTitle(e.target.value)} />
+                        <div className="flex flex-col justify-between">
+                            <label className="mr-4 w-24 inline-block">Title</label>
+                            <input className=" w-64" type="text" value={title} onChange={e => setTitle(e.target.value)} />
                         </div>
-                        <div>
-                            <label>Description</label>
-                            <textarea value={description} onChange={e => setDescription(e.target.value)} />
+                        <div className="mt-4 flex flex-col justify-between">
+                            <label className="mr-4 w-24 inline-block">Description</label>
+                            <textarea className=" w-64" value={description} onChange={e => setDescription(e.target.value)} />
                         </div>
                         <button type="submit">
                             <svg class="h-8 w-8 text-red-500"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <polygon points="5 3 19 12 5 21 5 3" /></svg>
