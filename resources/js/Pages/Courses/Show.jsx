@@ -75,13 +75,13 @@ const Show = ({auth}) => {
     return (
         <AuthenticatedLayout
             user={auth.user}
-            header={<h2 className="font-semibold text-xl text-green-500 leading-tight">Course: {course.title}</h2>}
+            header={<h2 className="font-semibold text-xl text-green-500 leading-tight">{course.title}</h2>}
         >
             <Head title="Course {course.title}" />
             <div className="max-w-7xl mx-auto py-12">
                 <div className="max-w-7xl px-4 sm:px-6 sm:px-6 lg:px-8">
-                    <div className="px-4 sm:px-6 bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4 w-max p-4">
-                        <p className="text-green-500 font-bold">Desc: {course.description}</p>
+                    <div className="max-w-7xl px-4 sm:px-6 bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4 w-max p-4">
+                        <p className="text-green-500 font-bold">{course.description}</p>
                         <Link className="inline-block" href={route('courses.edit', course.id)}>
                             <svg className="h-6 w-6 text-indigo-500 hover:text-indigo-800"  viewBox="0 0 24 24"  xmlns="http://www.w3.org/2000/svg"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <path d="M12 20h9" />  <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" /></svg>
                         </Link>

@@ -4,19 +4,24 @@ namespace App\Http\Controllers;
 
 use App\Models\Course;
 use App\Models\Lesson;
-use App\Models\Text;
-use App\Models\Test;
-use App\Models\Audio;
-use App\Models\Video;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class LessonController extends Controller
 {
-    // Show the form for editing the specified lesson
     public function show(Course $course, Lesson $lesson)
     {
-        return Inertia::render('Lessons/Show', ['course' => $course, 'lesson' => $lesson]);
+        // Load the related parts of the lesson
+        $lesson->load('texts', 'videos', 'audios', 'tests');
+
+        return Inertia::render('Lessons/Show', [
+            'course' => $course,
+            'lesson' => $lesson,
+            'texts' => $lesson->texts,
+            'videos' => $lesson->videos,
+            'audios' => $lesson->audios,
+            'tests' => $lesson->tests,
+        ]);
     }
 
     public function create($courseId)
@@ -121,5 +126,13 @@ class LessonController extends Controller
         }
 
         return redirect()->route('courses.show', $courseId)->with('success', 'Lesson updated successfully.');
+    }
+
+    public function destroy(Course $course, Lesson $lesson)
+    {
+        $lesson->delete();
+
+        return redirect()->route('courses.show', $course->id)
+                         ->with('success', 'Lesson deleted successfully.');
     }
 }

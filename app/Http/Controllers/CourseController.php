@@ -84,15 +84,18 @@ class CourseController extends Controller
 
     public function update(Request $request, Course $course)
     {
+        $user = $request->user();
+
+        if (!$user) return Inertia::render('Welcome');
+
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
-            'user_id' => 'required|exists:users,id',
         ]);
 
         $course->update($request->all());
 
-        return redirect()->route('courses.index')->with('success', 'Course updated successfully.');
+        return redirect()->route('courses.show', $course->id)->with('success', 'Course updated successfully.');
     }
 
     public function destroy(Course $course)
