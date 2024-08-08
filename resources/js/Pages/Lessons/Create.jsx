@@ -92,8 +92,8 @@ const Create = ({ courseId, auth }) => {
                             <svg className="h-6 w-6 text-green-500 hover:text-green-800" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M14 3v4a1 1 0 0 0 1 1h4" />  <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />  <line x1="12" y1="11" x2="12" y2="17" />  <line x1="9" y1="14" x2="15" y2="14" /></svg>
                         </button>
                         }
-                        <h2 className="text-indigo-500 font-bold">Audios</h2>
-                        {audios.map((audio, index) => (
+                        {/* <h2 className="text-indigo-500 font-bold">Audios</h2> */}
+                        {/* {audios.map((audio, index) => (
                             <div className="flex justify-between" key={index}>
                                 <input
                                     className="w-full mb-2 shadow-sm sm:rounded-lg border-indigo-500 text-green-500"
@@ -112,7 +112,7 @@ const Create = ({ courseId, auth }) => {
                                     }
                                 </div>
                             </div>
-                        ))}
+                        ))} */}
                         {audios.length === 0 &&
                         <button className="inline w-full" type="button" onClick={() => handleAddField(setAudios, audios)}>
                             <svg className="h-6 w-6 text-green-500 hover:text-green-800" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M14 3v4a1 1 0 0 0 1 1h4" />  <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />  <line x1="12" y1="11" x2="12" y2="17" />  <line x1="9" y1="14" x2="15" y2="14" /></svg>

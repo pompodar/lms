@@ -81,7 +81,17 @@ class LessonController extends Controller
     // Show the form for editing the specified lesson
     public function edit(Course $course, Lesson $lesson)
     {
-        return Inertia::render('Lessons/Edit', ['course' => $course, 'lesson' => $lesson]);
+        // Load the related parts of the lesson
+        $lesson->load('texts', 'videos', 'audios', 'tests');
+
+        return Inertia::render('Lessons/Edit', [
+            'course' => $course,
+            'lesson' => $lesson,
+            'texts' => $lesson->texts,
+            'videos' => $lesson->videos,
+            'audios' => $lesson->audios,
+            'tests' => $lesson->tests,
+        ]);
     }
 
     public function update(Request $request, $courseId, Lesson $lesson)
