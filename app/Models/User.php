@@ -44,4 +44,15 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function sharedCourses()
+    {
+        return $this->belongsToMany(Course::class);
+    }
+
+    public function courseOrders()
+    {
+        return $this->belongsToMany(Course::class, 'course_user_order')->withPivot('position')->orderBy('position');
+    }
+
 }

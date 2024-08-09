@@ -20,4 +20,15 @@ class Course extends Model
     {
         return $this->hasMany(Lesson::class);
     }
+
+    public function sharedUsers()
+    {
+        return $this->belongsToMany(User::class);
+    }
+
+    public function userOrders()
+    {
+        return $this->belongsToMany(User::class, 'course_user_order')->withPivot('position');
+    }
+
 }

@@ -40,7 +40,7 @@ const Edit = ({auth}) => {
             <Head title="Courses" />
             <div className="max-w-7xl mx-auto py-12">
                 <div className="max-w-7xl px-4 sm:px-6 sm:px-6 lg:px-8">
-                    <div className="px-4 sm:px-6 bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4 w-max p-4">
+                    <div className="px-4 sm:px-6 bg-white flex gap-8 overflow-hidden shadow-sm sm:rounded-lg mb-4 w-max p-4">
                     <form onSubmit={handleSubmit} className="">
                         <div className="flex flex-col mb-2">
                             <label className="text-indigo-500 font-bold">Title</label>
@@ -155,6 +155,35 @@ const Edit = ({auth}) => {
                             </svg>
                         </button>
                     </form>
+                    <div className="max-w-4xl flex flex-col">
+                    <ul>
+                        {texts && texts.map(text => (
+                            <li className="text-green-500 mb-2 inline-block" key={text.id}>{text.content}</li>
+                        ))}
+                    </ul>
+                    <ul>
+                        {tests && tests.map(test => (
+                            <li className="text-green-500 overflow-hidden shadow-sm sm:rounded-lg mb-2 inline-block" key={test.id}>{test.questions}</li>
+                        ))}
+                    </ul>
+                    {/* <ul>
+                        {audios && audios.map(audio => (
+                            <li key={audio.id}>
+                                <audio controls>
+                                    <source src={audio.url} type="audio/mpeg" />
+                                    Your browser does not support the audio element.
+                                </audio>
+                            </li>
+                        ))}
+                    </ul> */}
+                    <ul className="w-full">
+                        {videos && videos.map(video => (
+                            <li className="w-full lg:w-6/12  aspect-video text-green-500 overflow-hidden shadow-sm sm:rounded-lg mb-2 inline-block" key={video.id}>
+                                <div className="w-full h-full" dangerouslySetInnerHTML={{ __html: video.url.replace('width="560"', '').replace('height="315"', '') }} />
+                            </li>
+                        ))}
+                    </ul>
+                    </div>
                     </div>
                 </div>
                 <div className="max-w-7xl px-4 sm:px-6 sm:px-6 lg:px-8">

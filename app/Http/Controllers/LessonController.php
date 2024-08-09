@@ -41,7 +41,7 @@ class LessonController extends Controller
             'videos.*.url' => 'nullable|string',
         ]);
 
-        $lesson = Lesson::create(['title' => $request->title, 'course_id' => $request->courseId]);
+        $lesson = Lesson::create(['title' => $request->title, 'course_id' => (int)$request->courseId]);
 
         if ($request->has('texts')) {
             foreach ($request->texts as $text) {
@@ -96,6 +96,8 @@ class LessonController extends Controller
 
     public function update(Request $request, $courseId, Lesson $lesson)
     {
+        $course = Course::find($courseId);
+
         $request->validate([
             'title' => 'required|string|max:255',
             'texts.*.content' => 'nullable|string',
@@ -135,7 +137,25 @@ class LessonController extends Controller
             }
         }
 
-        return redirect()->route('courses.show', $courseId)->with('success', 'Lesson updated successfully.');
+        return redirect()->route('lessons.show', ['course' => $course, 'lesson' => $lesson])->with('success', 'Lesson updated successfully.');
+    }
+
+    public function reorder(Request $request, $courseId)
+    {
+        $lessonIds = $request->input('lessons');
+
+        // Validate the input
+        $request->validate([
+            'lessons' => 'required|array',
+            'lessons.*' => 'integer|exists:lessons,id'
+        ]);
+
+        // Update the lessons order
+        foreach ($lessonIds as $index => $lessonId) {
+            Lesson::where('id', $lessonId)->update(['order' => $index]);
+        }
+
+        return redirect()->route('courses.show', $courseId)->with('success', 'Lessons reordered successfully');
     }
 
     public function destroy(Course $course, Lesson $lesson)
