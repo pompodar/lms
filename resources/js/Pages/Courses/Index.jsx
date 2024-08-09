@@ -4,6 +4,13 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import Modal from '../../Components/SharingModal'; 
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import axios from 'axios';
+import NftCard from "@/Components/card/NftCard";
+import NFt2 from "../../assets/img/nfts/Nft2.png";
+import NFt4 from "../../assets/img/nfts/Nft4.png";
+import NFt3 from "../../assets/img/nfts/Nft3.png";
+import avatar1 from "../../assets/img/avatars/avatar1.png";
+import avatar2 from "../../assets/img/avatars/avatar2.png";
+import avatar3 from "../../assets/img/avatars/avatar3.png";
 
 const Index = ({ auth }) => {
     const { courses, currentPage, lastPage, links, users } = usePage().props;
@@ -125,7 +132,7 @@ const Index = ({ auth }) => {
                                 <ul
                                     ref={provided.innerRef}
                                     {...provided.droppableProps}
-                                    className="list-none p-0"
+                                    className="list-none p-0 flex flex-wrap"
                                 >
                                     {courses.data.length ? currentOrderedCourses.map((course, index) => (
                                         <Draggable key={course.id} draggableId={String(course.id)} index={index}>
@@ -140,7 +147,13 @@ const Index = ({ auth }) => {
                                                         href={route('courses.show', course.id)} 
                                                         className="text-green-500 hover:text-green-600 font-bold"
                                                     >
-                                                        {index + 1}. {course.title} {course.id} by <span className="text-orange-500">{course.author.name}</span>
+                                                        <NftCard
+                                                        bidders={[avatar1, avatar2, avatar3]}
+                                                        title={course.title}
+                                                        author={course.author.name}
+                                                        price="2.91"
+                                                        image={NFt4}
+                                                    />
                                                     </Link>
                                                     { auth.user.id === course.user_id &&
                                                     <button 
