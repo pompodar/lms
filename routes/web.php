@@ -30,7 +30,15 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::resource('courses', CourseController::class)->middleware(['web']);
+Route::resource('courses', CourseController::class)->middleware(['web'])->names([
+    'index' => 'courses.index',
+    'create' => 'courses.create',
+    'store' => 'courses.store',
+    'show' => 'courses.show',
+    'edit' => 'courses.edit',
+    'update' => 'courses.update',
+    'destroy' => 'courses.destroy',
+]);;
 
 Route::post('/courses/reorder', [CourseController::class, 'reorder'])->name('courses.reorder');
 

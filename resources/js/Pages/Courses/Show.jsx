@@ -103,9 +103,10 @@ const Show = ({ auth }) => {
         >
             <Head title={`Course ${course.title}`} />
             <div className="max-w-7xl mx-auto py-12">
-                <div className="max-w-7xl px-4 sm:px-6 lg:px-8">
+                <h1 className="text-2xl py-4 px-2 text-green-500 font-bold">Course</h1>
+                <div className="max-w-7xl mx-2">
                     <div className="max-w-7xl px-4 sm:px-6 bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4 w-max p-4">
-                        <p className="text-green-500 font-bold">{course.description}</p>
+                        <p className="max-w-7xl text-green-500 font-bold">{course.description}</p>
                         {course.author.id === auth.user.id && 
                             <>
                                 <Link className="inline-block" href={route('courses.edit', course.id)}>

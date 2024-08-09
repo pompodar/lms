@@ -4,10 +4,8 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import Modal from '../../Components/SharingModal'; 
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import axios from 'axios';
-import NftCard from "@/Components/card/NftCard";
-import NFt2 from "../../assets/img/nfts/Nft2.png";
+import NftCard from "@/Components/card/NftCard_redesigned";
 import NFt4 from "../../assets/img/nfts/Nft4.png";
-import NFt3 from "../../assets/img/nfts/Nft3.png";
 import avatar1 from "../../assets/img/avatars/avatar1.png";
 import avatar2 from "../../assets/img/avatars/avatar2.png";
 import avatar3 from "../../assets/img/avatars/avatar3.png";
@@ -111,9 +109,10 @@ const Index = ({ auth }) => {
             header={<h2 className="font-semibold text-xl text-green-500 leading-tight">Courses</h2>}
         >
             <Head title="Courses" />
-            <div className="py-12">
+            <div className="py-12 px-2">
+                <h1 className="text-green-500 my-4 text-2xl">Courses</h1>
                 <div className="">
-                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4 w-max">
+                    {/* <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4 w-max">
                         <div className="flex">
                             <Link href={route('courses.create')} className="p-6 block text-gray-900 w-max">
                                 <svg className="h-6 w-6 text-red-500 hover:text-red-600" width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">  
@@ -125,14 +124,14 @@ const Index = ({ auth }) => {
                                 </svg>
                             </Link>
                         </div>
-                    </div>
+                    </div> */}
                     <DragDropContext onDragEnd={onDragEnd}>
                         <Droppable droppableId="droppable">
                             {(provided) => (
                                 <ul
                                     ref={provided.innerRef}
                                     {...provided.droppableProps}
-                                    className="list-none p-0 flex flex-wrap"
+                                    className="list-none p-0 flex flex-wrap gap-2"
                                 >
                                     {courses.data.length ? currentOrderedCourses.map((course, index) => (
                                         <Draggable key={course.id} draggableId={String(course.id)} index={index}>
@@ -141,30 +140,29 @@ const Index = ({ auth }) => {
                                                     ref={provided.innerRef}
                                                     {...provided.draggableProps}
                                                     {...provided.dragHandleProps}
-                                                    className="bg-white overflow-hidden shadow-sm sm:rounded-lg flex justify-between p-4 border-b"
+                                                    className="bg-white overflow-hidden shadow-sm sm:rounded-lg flex justify-between border-b"
                                                 >
                                                     <Link 
                                                         href={route('courses.show', course.id)} 
-                                                        className="text-green-500 hover:text-green-600 font-bold"
+                                                        className="text-green-500 hover:text-green-600 font-bold w-48"
                                                     >
                                                         <NftCard
                                                         bidders={[avatar1, avatar2, avatar3]}
                                                         title={course.title}
                                                         author={course.author.name}
-                                                        price="2.91"
+                                                        share={ auth.user.id === course.user_id &&
+                                                            <button 
+                                                                onClick={() => openModal(course.id)}
+                                                                className="text-green-500 hover:text-green-600"
+                                                            >
+                                                                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+                                                                </svg>
+                                                            </button>
+                                                            }
                                                         image={NFt4}
                                                     />
                                                     </Link>
-                                                    { auth.user.id === course.user_id &&
-                                                    <button 
-                                                        onClick={() => openModal(course.id)}
-                                                        className="text-green-500 hover:text-green-600"
-                                                    >
-                                                        <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
-                                                        </svg>
-                                                    </button>
-                                                    }
                                                 </li>
                                             )}
                                         </Draggable>
@@ -178,11 +176,11 @@ const Index = ({ auth }) => {
                     </DragDropContext>         
                 </div>
                 {courses.data.length > 0 && 
-                <div className="max-w-7xl px-4 sm:px-6 sm:px-6 lg:px-8">
-                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4 w-max">
-                        <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg max-w-7xl px-4 sm:px-6 sm:px-6 lg:px-8">
+                <div className="">
+                    <div className="">
+                        <div className="">
                             {/* Pagination links */}
-                            <div className="flex justify-center mt-6 mb-4">
+                            <div className="flex mt-6 mb-4">
                                 <nav aria-label="Page navigation">
                                     <ul className="flex space-x-2">
                                         {filteredLinks.map((link, index) => (
