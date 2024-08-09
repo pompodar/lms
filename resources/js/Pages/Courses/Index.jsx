@@ -111,8 +111,8 @@ const Index = ({ auth }) => {
             header={<h2 className="font-semibold text-xl text-green-500 leading-tight">Courses</h2>}
         >
             <Head title="Courses" />
-            <div className="max-w-7xl mx-auto py-12">
-                <div className="max-w-7xl px-4 sm:px-6 sm:px-6 lg:px-8">
+            <div className="py-12">
+                <div className="">
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4 w-max">
                         <div className="flex">
                             <Link href={route('courses.create')} className="p-6 block text-gray-900 w-max">
