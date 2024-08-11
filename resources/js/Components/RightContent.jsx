@@ -17,7 +17,7 @@ const RightContent = () => {
           ) : 
             (
               <div className="mode-icon sun">
-                <i className="fa-solid fa-circle"></i>
+                <i className="fa-regular fa-moon"></i>
               </div>
             )
           }
