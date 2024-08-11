@@ -126,7 +126,7 @@ const Index = ({ auth }) => {
                         </div>
                     </div> */}
                     <DragDropContext onDragEnd={onDragEnd}>
-                        <Droppable droppableId="droppable">
+                        <Droppable droppableId="droppable" direction="horizontal">
                             {(provided) => (
                                 <ul
                                     ref={provided.innerRef}

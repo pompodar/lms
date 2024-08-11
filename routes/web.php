@@ -20,9 +20,9 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/admin', function () {
-    return Inertia::render('layouts_horizon/admin/index');
-})->middleware(['web'])->name('admin');
+// Route::get('/new_design', function () {
+//     return Inertia::render('Courses/New_Design');
+// })->middleware(['web'])->name('admin');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
