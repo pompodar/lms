@@ -40,7 +40,7 @@ class CourseController extends Controller
     
         $users = User::all();
     
-        return Inertia::render('Courses/New_Design', [
+        return Inertia::render('Courses/Index', [
             'courses' => $paginatedCourses,
             'currentPage' => $paginatedCourses->currentPage(),
             'lastPage' => $paginatedCourses->lastPage(),
