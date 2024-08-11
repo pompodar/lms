@@ -1,10 +1,7 @@
 import React, {useState} from 'react';
 import { Link, usePage, Head, router } from '@inertiajs/react';
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import Modal from '@/Components/SharingModal'; 
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import axios from 'axios';
-import NftCard from "@/Components/card/NftCard_redesigned";
 import NFt4 from "../assets/img/nfts/Nft4.png";
 import avatar1 from "../assets/img/avatars/avatar1.png";
 import avatar2 from "../assets/img/avatars/avatar2.png";

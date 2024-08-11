@@ -2,9 +2,12 @@ import { useState } from 'react';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
+import { useTheme } from '../context/ThemeComtext'; // Corrected import path
 
 const NavBar = ({user}) => {
   const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
+
+  const { theme } = useTheme();
 
     return (
       <nav className="main-menu">
@@ -23,15 +26,15 @@ const NavBar = ({user}) => {
                                     <span className="inline-flex">
                                         <button
                                             type="button"
-                                            className="bg-transparent inline-flex items-center px-3 pb-4 border border-transparent text-md leading-4 font-medium text-white focus:outline-none transition ease-in-out duration-150"
-                                        >
+                                            className={`bg-transparent inline-flex items-center px-3 pb-4 border border-transparent text-md leading-4 font-medium ${theme === "dark" ? "text-white" : "text-black"} focus:outline-none transition ease-in-out duration-150`}
+                                            >
                                             {user.name}
 
                                             <svg
                                                 className="ms-2 -me-0.5 h-4 w-4"
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 viewBox="0 0 20 20"
-                                                fill="white"
+                                                fill={theme === "dark" ? "white" : "black"} // Conditional fill color
                                             >
                                                 <path
                                                     fillRule="evenodd"
