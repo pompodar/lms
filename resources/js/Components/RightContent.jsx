@@ -1,8 +1,8 @@
 import React from 'react';
 import { useTheme } from '../context/ThemeContext';
 
-const RightContent = () => {
-  const { theme, toggleTheme } = useTheme();
+const RightContent = ({ courses }) => {
+  const { theme, toggleTheme } = useTheme();  
 
   return (
     <div className="right-content">
@@ -29,13 +29,13 @@ const RightContent = () => {
         <div className="analytics-container">
           <div className="total-events">
             <div className="event-number card">
-              <h2>Past Events</h2>
+              <h2>Students</h2>
               <p>20</p>
               <i className="bx bx-check-circle"></i>
             </div>
             <div className="event-number card">
-              <h2>Upcoming Events</h2>
-              <p>3</p>
+              <h2>Courses</h2>
+              <p>{courses.data.length}</p>
               <i className="bx bx-timer"></i>
             </div>
           </div>

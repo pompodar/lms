@@ -10,12 +10,12 @@ const Reviews = () => {
   
     return (
       <div className="reviews">
-        <h1>Past Event Reviews</h1>
+        {/* <h1>Past Event Reviews</h1>
         <div className="review-container">
           {reviews.map((review, index) => (
             <ReviewCard key={index} {...review} />
           ))}
-        </div>
+        </div> */}
       </div>
     );
   };

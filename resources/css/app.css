@@ -246,16 +246,10 @@ h2 {
 }
 
 .event-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 20px;
   padding: 14px 0 20px;
 }
 
 .event-card {
-  display: grid;
-  grid-auto-flow: dense;
-  grid-template-rows: 2fr 0.8fr 0.5fr;
   padding: 8px;
 }
 
@@ -320,9 +314,6 @@ h2 {
 /* Event Content */
 
 .event-content {
-  display: grid;
-  grid-auto-flow: dense;
-  grid-template-rows: 2fr 1fr;
   padding: 6px 6px 12px;
 }
 

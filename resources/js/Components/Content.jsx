@@ -8,7 +8,7 @@ const Content = ({ auth, courses, currentPage, lastPage, links, users }) => {
   const { menuFull, toggleMaenu } = useTheme();
 
   return (
-    <section className={`content transition-transform duration-300 ${menuFull ? "" : "-translate-x-24 xl:-translate-x-40 w-full"}`}>
+    <section className={`content transition-transform duration-300 ${menuFull ? "" : "-translate-x-16 xl:-translate-x-40 w-full"}`}>
       <LeftContent 
         auth={auth}
         courses={courses}
@@ -17,7 +17,7 @@ const Content = ({ auth, courses, currentPage, lastPage, links, users }) => {
         links={links}
         users={users}
       />
-      <RightContent />
+      <RightContent courses={courses} />
     </section>
   );
 };

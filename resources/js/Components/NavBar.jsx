@@ -11,10 +11,10 @@ const NavBar = ({ user }) => {
   const { menuFull, toggleMenu } = useTheme();
 
   return (
-    <nav className={`main-menu relative z-10 transform transition-transform duration-300 ${menuFull ? "translate-x-0" : "-translate-x-full"}`}>
+    <nav className={`main-menu relative z-10 transform transition-transform duration-300 ease-custom-cubic ${menuFull ? "translate-x-0" : "-translate-x-full"}`}>
       <div
         onClick={() => { toggleMenu(menuFull); }}
-        className={`group flex justify-center items-center absolute ${menuFull ? "-right-3" : "-right-7"} top-32 w-6 h-6 bg-indigo-500 rounded-full cursor-pointer border border-white shadow-lg transition-transform duration-300`}
+        className={`group flex justify-center items-center absolute ${menuFull ? "-right-3" : "-right-7"} top-32 w-6 h-6 bg-indigo-500 rounded-full cursor-pointer border border-white shadow-lg transition-transform duration-300 ease-custom-cubic`}
       >
         {menuFull ? (
           <i className="fa-solid fa-angle-left group-hover:rotate-[360deg] transition-transform duration-300"></i>
@@ -50,7 +50,8 @@ const NavBar = ({ user }) => {
           </div>
         </div>
         <ul>
-          <NavItem icon="fa-map" text="Courses" link="courses.index" method="get" active menuFull={menuFull} />
+          <NavItem icon="fa-map" text="Home" link="home" method="get" active menuFull={menuFull} />
+          <NavItem icon="fa-map" text="Courses" link="courses.index" method="get" menuFull={menuFull} />
           <NavItem icon="fa-arrow-trend-up" text="Lessons" link="courses.index" method="get" menuFull={menuFull} />
           <NavItem icon="fa-solid fa-chart-simple" text="Analytics" link="courses.index" method="get" menuFull={menuFull} />
           <NavItem icon="fa-heart" text="Favorites" link="courses.index" method="get" menuFull={menuFull} />

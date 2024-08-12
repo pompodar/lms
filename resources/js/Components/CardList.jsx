@@ -6,13 +6,11 @@ import NFt4 from "../assets/img/nfts/Nft4.png";
 import avatar1 from "../assets/img/avatars/avatar1.png";
 import avatar2 from "../assets/img/avatars/avatar2.png";
 import avatar3 from "../assets/img/avatars/avatar3.png";
+import { useTheme } from '../context/ThemeContext'; 
 
 const CardList = ({ auth, courses, currentPage, lastPage, links, users }) => {
     const [currentOrderedCourses, setOrderedCourses] = useState(courses.data);
-
-    console.log(courses);
-    
-
+  
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedCourse, setSelectedCourse] = useState(null);
 
@@ -103,14 +101,41 @@ const CardList = ({ auth, courses, currentPage, lastPage, links, users }) => {
   
     return (
       <div className="upcoming-events">
-        <h1>Courses</h1>
+        <div className="flex mb-2 sm:mb-0 flex-col sm:flex-row justify-between">
+            <h1 className="block">Courses</h1>
+            <div className="flex">
+                <nav aria-label="Page navigation">
+                    <ul className="flex space-x-2">
+                        {filteredLinks.map((link, index) => (
+                            <Link 
+                                key={index}
+                                href={link.url || '#'}
+                                className={`px-4 py-2 border rounded flex items-center justify-center ${
+                                    link.active 
+                                        ? 'bg-blue-500 text-white' 
+                                        : 'bg-white text-blue-500 border-blue-500'
+                                } hover:bg-blue-100`}
+                            >
+                                {link.label.includes("Next") ? (
+                                    <NextIcon />
+                                ) : link.label.includes("Previous") ? (
+                                    <PreviousIcon />
+                                ) : (
+                                    link.label
+                                )}
+                            </Link>
+                        ))}
+                    </ul>
+                </nav>
+            </div>
+        </div>
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId="droppable" direction="horizontal">
               {(provided) => (
                   <ul
                       ref={provided.innerRef}
                       {...provided.droppableProps}
-                      className="list-none p-0 flex flex-wrap gap-2"
+                      className="list-none p-0 flex flex-wrap"
                   >
                       {courses.data.length ? currentOrderedCourses.map((course, index) => (
                           <Draggable key={course.id} draggableId={String(course.id)} index={index}>
@@ -119,31 +144,25 @@ const CardList = ({ auth, courses, currentPage, lastPage, links, users }) => {
                                       ref={provided.innerRef}
                                       {...provided.draggableProps}
                                       {...provided.dragHandleProps}
-                                      className="bg-white overflow-hidden shadow-sm sm:rounded-lg flex justify-between border-b w-full lg:w-auto"
+                                      className="bg-white overflow-hidden shadow-sm sm:rounded-lg flex justify-between border-b w-full lg:w-1/3 text-green-500 hover:text-green-600 font-bold"
                                   >
-                                      <Link 
-                                          href={route('courses.show', course.id)} 
-                                          className="text-green-500 hover:text-green-600 font-bold w-full"
-                                      >
-                                        <Card 
-                                            key={index}  
-                                            bidders={[avatar1, avatar2, avatar3]}
-                                            title={course.title}
-                                            date={course.author.name}
-                                            location={ auth.user.id === course.user_id &&
-                                              <button 
-                                                  onClick={() => openModal(course.id)}
-                                                  className="text-green-500 hover:text-green-600 hidden"
-                                              >
-                                                  <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
-                                                  </svg>
-                                              </button>
-                                              }
-                                              color={"red"}
-                                              img={NFt4}
-                                        />
-                                      </Link>
+                                      <Card 
+                                          key={index}  
+                                          bidders={[avatar1, avatar2, avatar3]}
+                                          id={course.id}
+                                          title={course.title}
+                                          date={course.author.name}
+                                          share={ auth.user.id === course.user_id &&
+                                            <button 
+                                                onClick={() => openModal(course.id)}
+                                                className="share-btn"
+                                            >
+                                              <i className="fa-solid fa-share"></i>
+                                            </button>
+                                            }
+                                            color={"red"}
+                                            img={NFt4}
+                                      />
                                   </li>
                               )}
                           </Draggable>
@@ -159,7 +178,9 @@ const CardList = ({ auth, courses, currentPage, lastPage, links, users }) => {
     );
   };
   
-  const Card = ({ date, title, location, color, img }) => {
+  const Card = ({ date, id, title, bidders, img, share }) => {
+    const { theme } = useTheme();
+
     return (
       <div className="card event-card w-full text-white">
         <div className="event-header">
@@ -168,29 +189,41 @@ const CardList = ({ auth, courses, currentPage, lastPage, links, users }) => {
           <i className="bx bx-heart like-btn"></i>
         </div>
         <div className="event-content">
+        <Link 
+            href={route('courses.show', id)} 
+            className={`${theme === "dark" ? "text-white" : "text-black"} hover:text-indigo-500 font-bold w-full`}
+        >
           <h2>{title}</h2>
-          <p>{location}</p>
+          </Link>
+        </div>
+        <div className="flex flex-row-reverse w-max px-2 md:mt-2 lg:mt-0 mb-4">
+            <span className="z-0 ml-px inline-flex h-8 w-8 items-center justify-center rounded-full border-2 border-white bg-[#E0E5F2] text-xs text-navy-700 dark:!border-navy-800 dark:bg-gray-800 dark:text-white">
+              +5
+            </span>
+            {bidders.map((avt, key) => (
+              <span
+                key={key}
+                className="z-10 -mr-3 h-8 w-8 rounded-full border-2 border-white dark:!border-navy-800"
+              >
+                <img
+                  className="h-full w-full rounded-full object-cover"
+                  src={avt}
+                  alt=""
+                />
+              </span>
+            ))}
         </div>
         <div className="event-footer">
           {/* <p style={{ backgroundColor: color }}>{category}</p> */}
           <div className="btn-group">
-            <button>Buy Ticket</button>
+          <Link 
+                href={route('courses.show', id)} 
+                className="font-bold"
+            >
+              <button className="!font-bold">To Course</button>
+            </Link>
             <div className="share">
-              <button className="share-btn">
-                <i className="fa-solid fa-share"></i>
-              </button>
-              <ul className="popup">
-                <li>
-                  <a href="#" style={{ color: 'rgb(79, 153, 213)' }}>
-                    <i className="bx bxl-twitter"></i>
-                  </a>
-                </li>
-                <li>
-                  <a href="#" style={{ color: 'rgb(34, 173, 34)' }}>
-                    <i className="bx bxl-whatsapp"></i>
-                  </a>
-                </li>
-              </ul>
+              {share}
             </div>
           </div>
         </div>

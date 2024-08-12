@@ -34,7 +34,7 @@ class CourseController extends Controller
         });
     
         // Paginate manually after sorting
-        $perPage = 3;
+        $perPage = 2;
         $pagedCourses = $orderedCourses->slice(($request->input('page', 1) - 1) * $perPage, $perPage)->values();
         $paginatedCourses = new \Illuminate\Pagination\LengthAwarePaginator($pagedCourses, $orderedCourses->count(), $perPage, $request->input('page', 1), ['path' => $request->url()]);
     
