@@ -1,4 +1,3 @@
-// ThemeContext.js
 import React, { createContext, useState, useContext } from 'react';
 
 const ThemeContext = createContext();
@@ -8,6 +7,12 @@ export const useTheme = () => useContext(ThemeContext);
 export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
 
+  const [menuFull, setMenufull] = useState(true);
+
+  const toggleMenu = () => {
+    setMenufull(!menuFull);
+  };
+
   const toggleTheme = () => {
     const newTheme = theme === 'light' ? 'dark' : 'light';
     setTheme(newTheme);
@@ -16,7 +21,7 @@ export const ThemeProvider = ({ children }) => {
   };
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme }}>
+    <ThemeContext.Provider value={{ theme, toggleTheme, menuFull, toggleMenu }}>
       <div className={`theme-${theme}`}>
         {children}
       </div>

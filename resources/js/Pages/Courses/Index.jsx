@@ -5,7 +5,7 @@ import Modal from '../../Components/SharingModal';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import axios from 'axios';
 import Content from '@/Components/Content';
-import { useTheme } from '../../context/ThemeComtext'; // Ensure the path is correct
+import { useTheme } from '../../context/ThemeContext'; // Ensure the path is correct
 
 const App = ({ auth }) => {
   const { courses, currentPage, lastPage, links, users } = usePage().props;

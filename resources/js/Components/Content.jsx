@@ -2,11 +2,13 @@ import React from 'react';
 import RightContent from "./RightContent";
 import CardList from "./CardList";
 import Reviews from './Reviews';
-import { useTheme } from '../context/ThemeComtext'; // Corrected import path
+import { useTheme } from '../context/ThemeContext'; 
 
 const Content = ({ auth, courses, currentPage, lastPage, links, users }) => {
+  const { menuFull, toggleMaenu } = useTheme();
+
   return (
-    <section className="content">
+    <section className={`content transition-transform duration-300 ${menuFull ? "" : "-translate-x-24 xl:-translate-x-40 w-full"}`}>
       <LeftContent 
         auth={auth}
         courses={courses}

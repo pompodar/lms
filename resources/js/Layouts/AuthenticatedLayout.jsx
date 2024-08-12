@@ -1,5 +1,5 @@
 import NavBar from '@/Components/NavBar';
-import { useTheme } from '../context/ThemeComtext'; // Ensure the path is correct
+import { useTheme } from '../context/ThemeContext'; // Ensure the path is correct
 
 export default function Authenticated({ user, children }) {
     const { theme, toggleTheme } = useTheme();

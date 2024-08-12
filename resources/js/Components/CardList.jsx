@@ -119,11 +119,11 @@ const CardList = ({ auth, courses, currentPage, lastPage, links, users }) => {
                                       ref={provided.innerRef}
                                       {...provided.draggableProps}
                                       {...provided.dragHandleProps}
-                                      className="bg-white overflow-hidden shadow-sm sm:rounded-lg flex justify-between border-b"
+                                      className="bg-white overflow-hidden shadow-sm sm:rounded-lg flex justify-between border-b w-full lg:w-auto"
                                   >
                                       <Link 
                                           href={route('courses.show', course.id)} 
-                                          className="text-green-500 hover:text-green-600 font-bold w-72 max-w-96"
+                                          className="text-green-500 hover:text-green-600 font-bold w-full"
                                       >
                                         <Card 
                                             key={index}  

@@ -96,7 +96,6 @@ h2 {
   justify-content: space-between;
   border-right: 1px solid var(--border-color);
   padding: 12px 0 10px;
-  overflow: hidden;
   font-family: inherit;
 }
 
@@ -712,7 +711,7 @@ body::-webkit-scrollbar-thumb {
 
 /* MEDIA QUERIES */
 
-@media (max-width: 1500px) {
+@media (max-width: 1280px) {
   .main-menu {
     width: 100px;
   }
