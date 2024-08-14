@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import { Link, usePage, Head, router } from '@inertiajs/react';
+import React, { useState } from 'react';
+import { Link, router } from '@inertiajs/react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import axios from 'axios';
 import NFt4 from "../assets/img/nfts/Nft4.png";
@@ -8,9 +8,10 @@ import avatar2 from "../assets/img/avatars/avatar2.png";
 import avatar3 from "../assets/img/avatars/avatar3.png";
 import { useTheme } from '../context/ThemeContext'; 
 
-const CardList = ({ auth, courses, currentPage, lastPage, links, users }) => {
-    const [currentOrderedCourses, setOrderedCourses] = useState(courses.data);
-  
+const CardList = ({ auth, course, lessons, currentPage, lastPage }) => {
+    
+    const [currentOrderedCourses, setOrderedCourses] = useState(lessons.data || []);
+
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedCourse, setSelectedCourse] = useState(null);
 
@@ -41,15 +42,13 @@ const CardList = ({ auth, courses, currentPage, lastPage, links, users }) => {
         const { source, destination } = result;
         if (!destination) return; // dropped outside the list
 
-        const reorderedCourses = Array.from(courses.data);
+        const reorderedCourses = Array.from(currentOrderedCourses);
         const [movedCourses] = reorderedCourses.splice(source.index, 1);
         reorderedCourses.splice(destination.index, 0, movedCourses);
 
-        console.log(reorderedCourses);
-
         // Send the reordered list to the backend to update the order
         router.post(route('courses.reorder'), 
-        { order: reorderedCourses.map(course => course.id) }, {
+        { order: reorderedCourses.map(lesson => lesson.id) }, {
             onSuccess: () => {
                 // Handle success
                 setOrderedCourses(reorderedCourses);
@@ -61,7 +60,7 @@ const CardList = ({ auth, courses, currentPage, lastPage, links, users }) => {
     };    
 
     // Filter links to include only the required ones
-    const filteredLinks = courses.links.filter(link => 
+    const filteredLinks = lessons.links.filter(link => 
         (link.label && link.label.includes("Previous") && currentPage !== 1) ||
         (link.label && link.label.includes("Next") && currentPage !== lastPage) ||
         (link.label && link.label == currentPage) ||
@@ -102,9 +101,12 @@ const CardList = ({ auth, courses, currentPage, lastPage, links, users }) => {
     return (
       <div className="upcoming-events">
         <div className="flex mb-2 sm:mb-0 flex-col sm:flex-row justify-between">
-            <h1 className="block">Courses</h1>
-            <Link className="flex items-center ml-2 mb-1 mr-auto" href={route('courses.create')}>
+            <h1 className="block">Lessons</h1>
+            <Link className="flex items-center ml-2 mb-1" href={route('lessons.create', course.id)}>
                 <svg className="h-8 w-8 text-indigo-500 hover:text-indigo-400"  width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M14 3v4a1 1 0 0 0 1 1h4" />  <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />  <line x1="12" y1="11" x2="12" y2="17" />  <line x1="9" y1="14" x2="15" y2="14" /></svg>
+            </Link>
+            <Link className="ml-auto mr-2 flex items-center" href={route('courses.index')}>
+                <svg className="h-8 w-8 text-red-500 hover:text-indigo-500"  width="24" height="24" viewBox="0 0 24 24" strokeWidth="2" stroke="currentColor" fill="none" strokeLinecap="round" strokeLinejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M18 6v6a3 3 0 0 1 -3 3h-10l5 -5m0 10l-5 -5" /></svg>
             </Link>
             <div className="flex">
                 <nav aria-label="Page navigation">
@@ -140,8 +142,8 @@ const CardList = ({ auth, courses, currentPage, lastPage, links, users }) => {
                       {...provided.droppableProps}
                       className="list-none p-0 flex flex-wrap"
                   >
-                      {courses.data.length ? currentOrderedCourses.map((course, index) => (
-                          <Draggable key={course.id} draggableId={String(course.id)} index={index}>
+                      {currentOrderedCourses.length ? currentOrderedCourses.map((lesson, index) => (
+                          <Draggable key={lesson.id} draggableId={String(lesson.id)} index={index}>
                           {(provided) => (
                                   <li
                                       ref={provided.innerRef}
@@ -150,26 +152,20 @@ const CardList = ({ auth, courses, currentPage, lastPage, links, users }) => {
                                       className="bg-white overflow-hidden shadow-sm sm:rounded-lg flex justify-between border-b w-full lg:w-1/3 text-green-500 hover:text-green-600 font-bold"
                                   >
                                       <Card 
-                                          key={index}  
+                                          key={index} 
+                                          course={course}
+                                          lesson={lesson} 
                                           bidders={[avatar1, avatar2, avatar3]}
-                                          id={course.id}
-                                          title={course.title}
+                                          id={lesson.id}
+                                          title={lesson.title}
                                           date={course.author.name}
-                                          edit={ auth.user.id === course.user_id &&
+                                          share={
                                             <button 
                                                 className="share-btn"
                                             >
-                                                <Link href={route('courses.edit', course.id,)}>
+                                                <Link href={route('lessons.edit', [course.id, lesson.id])}>
                                                     <i class="fa-regular fa-pen-to-square"></i>                                            
                                                 </Link>
-                                            </button>
-                                            }
-                                          share={ auth.user.id === course.user_id &&
-                                            <button 
-                                                onClick={() => openModal(course.id)}
-                                                className="share-btn"
-                                            >
-                                              <i className="fa-solid fa-share"></i>
                                             </button>
                                             }
                                             color={"red"}
@@ -180,7 +176,7 @@ const CardList = ({ auth, courses, currentPage, lastPage, links, users }) => {
                           </Draggable>
                       )) : (
                           <p className="px-4 sm:px-6 text-white overflow-hidden shadow-sm sm:rounded-lg mb-4 w-max p-4">
-                            No courses yet
+                            No lessons yet...
                           </p>
                       )}
                       {provided.placeholder}
@@ -192,7 +188,7 @@ const CardList = ({ auth, courses, currentPage, lastPage, links, users }) => {
     );
   };
   
-  const Card = ({ date, id, title, bidders, img, share, edit }) => {
+  const Card = ({ course, lesson, date, id, title, bidders, img, share }) => {
     const { theme } = useTheme();
 
     return (
@@ -228,17 +224,13 @@ const CardList = ({ auth, courses, currentPage, lastPage, links, users }) => {
             ))}
         </div>
         <div className="event-footer">
-          {/* <p style={{ backgroundColor: color }}>{category}</p> */}
-          <div className="btn-group flex justify-between w-full">
-          <Link 
-                href={route('courses.show', id)} 
+        <div className="btn-group flex justify-between w-full">
+        <Link 
+                href={route('lessons.show', [course.id, lesson.id])} 
                 className="font-bold"
             >
-              <button className="!font-bold">To Course</button>
+              <button className="!font-bold">To Lesson</button>
             </Link>
-            <div className="share">
-              {edit}
-            </div>
             <div className="share ml-auto">
               {share}
             </div>
@@ -249,4 +241,3 @@ const CardList = ({ auth, courses, currentPage, lastPage, links, users }) => {
   };
 
   export default CardList;
-  

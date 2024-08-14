@@ -19,7 +19,7 @@ export default {
                 'custom-cubic': 'cubic-bezier(0.91, 0.01, 0.6, 0.99)',
             },
             backgroundColor: { // Corrected key
-                'body-dark': 'rgb(42, 51, 65)', // Changed key name to avoid conflicts
+                'body-dark': 'rgb(6, 5, 40)', // Changed key name to avoid conflicts
             },
         },
     },

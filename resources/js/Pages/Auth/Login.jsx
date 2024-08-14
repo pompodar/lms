@@ -23,39 +23,51 @@ export default function Login({ status, canResetPassword }) {
 
     return (
         <GuestLayout>
-            <Head title="Log in" />
 
-            {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
+            {status && <div className="mb-4 font-medium text-sm text-white">{status}</div>}
 
-            <form onSubmit={submit}>
+            <form onSubmit={submit}
+                className="bg-body-dark text-white"
+            >
                 <div>
-                    <InputLabel htmlFor="email" value="Email" />
+                    <InputLabel 
+                        className="text-white"
+                        htmlFor="email" value="Email" />
 
                     <TextInput
                         id="email"
                         type="email"
                         name="email"
                         value={data.email}
-                        className="mt-1 block w-full"
                         autoComplete="username"
                         isFocused={true}
                         onChange={(e) => setData('email', e.target.value)}
+                        className="mt-1 block w-full bg-body-dark text-white"
+                        style={{border: "2px solid rgba(169, 150, 253, 0.5)",
+                            boxShadow: "0px 4px 5px 0px rgba(208, 195, 226, 0.13), 0px 1px 8px 0px rgba(208, 195, 226, 0.13), 0px 2px 4px -1px rgba(208, 195, 226, 0.13)"
+                        }}
                     />
 
                     <InputError message={errors.email} className="mt-2" />
                 </div>
 
                 <div className="mt-4">
-                    <InputLabel htmlFor="password" value="Password" />
+                    <InputLabel 
+                        className="text-white"
+                        htmlFor="password" value="Password" 
+                        />
 
                     <TextInput
                         id="password"
                         type="password"
                         name="password"
                         value={data.password}
-                        className="mt-1 block w-full"
                         autoComplete="current-password"
                         onChange={(e) => setData('password', e.target.value)}
+                        className="mt-1 block w-full bg-body-dark text-white"
+                        style={{border: "2px solid rgba(169, 150, 253, 0.5)",
+                            boxShadow: "0px 4px 5px 0px rgba(208, 195, 226, 0.13), 0px 1px 8px 0px rgba(208, 195, 226, 0.13), 0px 2px 4px -1px rgba(208, 195, 226, 0.13)"
+                        }}
                     />
 
                     <InputError message={errors.password} className="mt-2" />
@@ -68,7 +80,7 @@ export default function Login({ status, canResetPassword }) {
                             checked={data.remember}
                             onChange={(e) => setData('remember', e.target.checked)}
                         />
-                        <span className="ms-2 text-sm text-gray-600">Remember me</span>
+                        <span className="ms-2 text-sm text-white">Remember me</span>
                     </label>
                 </div>
 
@@ -76,13 +88,17 @@ export default function Login({ status, canResetPassword }) {
                     {canResetPassword && (
                         <Link
                             href={route('password.request')}
-                            className="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            className="underline text-sm text-white rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                         >
                             Forgot your password?
                         </Link>
                     )}
 
-                    <PrimaryButton className="ms-4" disabled={processing}>
+                    <PrimaryButton className="ms-4" disabled={processing}
+                    style={{border: "2px solid rgba(169, 150, 253, 0.5)",
+                        boxShadow: "0px 4px 5px 0px rgba(208, 195, 226, 0.13), 0px 1px 8px 0px rgba(208, 195, 226, 0.13), 0px 2px 4px -1px rgba(208, 195, 226, 0.13)"
+                    }}
+                    >
                         Log in
                     </PrimaryButton>
                 </div>

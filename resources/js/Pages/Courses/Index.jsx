@@ -1,16 +1,13 @@
 import React from 'react';
-import { Link, usePage, Head, router } from '@inertiajs/react';
+import { usePage, Head } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import Modal from '../../Components/SharingModal'; 
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import axios from 'axios';
-import Content from '@/Components/Content';
-import { useTheme } from '../../context/ThemeContext'; // Ensure the path is correct
+import ContentCourses from '@/Components/ContentCourses';
+import { useTheme } from '../../context/ThemeContext';
 
 const App = ({ auth }) => {
   const { courses, currentPage, lastPage, links, users } = usePage().props;
 
-  const { theme, toggleTheme } = useTheme();
+  const { theme } = useTheme();
 
   return (
     <AuthenticatedLayout
@@ -19,7 +16,7 @@ const App = ({ auth }) => {
     >
       <Head title="Courses" />
       <div className={theme === 'dark' ? 'darkmode' : ''}>
-        <Content
+        <ContentCourses
             auth={auth}
             courses={courses}
             currentPage={currentPage}

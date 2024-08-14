@@ -194,7 +194,7 @@ h2 {
 }
 
 .search-box input {
-  width: 80%;
+  width: 90%;
   height: 40px;
   background: var(--card-bg-color);
   color: var(--primary-color);

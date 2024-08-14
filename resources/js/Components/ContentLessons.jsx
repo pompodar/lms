@@ -1,39 +1,39 @@
 import React from 'react';
-import RightContent from "./RightContent";
-import CardList from "./CardList";
+import RightContentLessons from "./RightContentLessons";
+import CardListLessons from "./CardListLessons";
 import Reviews from './Reviews';
 import { useTheme } from '../context/ThemeContext'; 
 
-const Content = ({ auth, courses, currentPage, lastPage, links, users }) => {
-  const { menuFull, toggleMaenu } = useTheme();
+const Content = ({ auth, course, lessons, currentPage, lastPage, links }) => {
+  const { menuFull } = useTheme();
 
   return (
     <section className={`content transition-transform duration-300 ${menuFull ? "" : "-translate-x-16 xl:-translate-x-40 w-full"}`}>
       <LeftContent 
         auth={auth}
-        courses={courses}
+        course={course}
+        lessons={lessons}
         currentPage={currentPage}
         lastPage={lastPage}
         links={links}
-        users={users}
       />
-      <RightContent courses={courses} />
+      <RightContentLessons lessons={lessons} />
     </section>
   );
 };
 
-const LeftContent = ({ auth, courses, currentPage, lastPage, links, users }) => {
+const LeftContent = ({ auth, course, lessons, currentPage, lastPage, links }) => {
   return (
     <div className="left-content">
       <SearchAndCheck />
       <Header />
-      <CardList
+      <CardListLessons
         auth={auth} 
-        courses={courses}
+        course={course}
+        lessons={lessons}
         currentPage={currentPage}
         lastPage={lastPage}
         links={links}
-        users={users}
       />
       <Reviews />
     </div>
@@ -42,9 +42,9 @@ const LeftContent = ({ auth, courses, currentPage, lastPage, links, users }) => 
 
 const SearchAndCheck = () => {
   return (
-    <div className="search-and-check">
-      <form className="search-box">
-        <input type="text" placeholder="Search event..." />
+    <div className="search-and-check flex items-center">
+      <form className="search-box w-full">
+        <input type="text" placeholder="Search event..." className="!w-9/10"/>
         <i className="bx bx-search"></i>
       </form>
       <div className="interaction-control-mobile interactions">
